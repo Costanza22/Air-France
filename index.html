@@ -349,6 +349,31 @@
                 source: availableCountries
               });
             });
+
+            
+          </script>
+          <script>
+            $(document).ready(function() {
+              var availableDestinations = [
+                "Paris, França",
+                "Nova York, Estados Unidos",
+                "Londres, Reino Unido",
+                "Tóquio, Japão",
+                "Rio de Janeiro, Brasil",
+                "Sydney, Austrália",
+                "Roma, Itália",
+                "Barcelona, Espanha",
+                "Montreal, Canadá",
+                "Pequim, China",
+                "Joanesburgo, África do Sul",
+                "Dubai, Emirados Árabes Unidos",
+                // Adicione outros destinos da Air France aqui
+              ];
+          
+              $("#destination").autocomplete({
+                source: availableDestinations
+              });
+            });
           </script>
           
 
