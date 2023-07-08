@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mapa Interativo das Rotas da Air France</title>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      height: 100%;
+      width: 100%;
+    }
+
+    .airplane-icon {
+      width: 50px;
+      height: 50px;
+      background-image: url('air6.jpg');
+      background-size: cover;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/leaflet/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet/dist/leaflet.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/mapbox-gl/dist/mapbox-gl.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/mapbox-gl/dist/mapbox-gl.css" rel="stylesheet" />
+
+  <script>
+    mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN';
+
+    var map = L.map('map').setView([48.8566, 2.3522], 3); // Paris, França
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+      maxZoom: 18,
+    }).addTo(map);
+
+    var airplaneIcon = L.divIcon({
+      className: 'airplane-icon'
+    });
+
+    var route = [
+      [48.8566, 2.3522], // Paris, França
+      [40.7128, -74.0060], // Nova York, EUA
+      [34.0522, -118.2437], // Los Angeles, EUA
+      // Adicione mais coordenadas para estender a rota
+    ];
+
+    var polyline = L.polyline(route, {
+      color: '#003087',
+      weight: 2,
+    }).addTo(map);
+
+    var airplaneMarker = L.marker(route[0], { icon: airplaneIcon }).addTo(map);
+
+    var currentIndex = 0;
+
+    function animateAirplane() {
+      if (currentIndex < route.length) {
+        airplaneMarker.setLatLng(route[currentIndex]);
+        currentIndex++;
+        setTimeout(animateAirplane, 2000); // Ajuste o intervalo de tempo conforme necessário
+      }
+    }
+
+    animateAirplane();
+  </script>
+</body>
+</html>

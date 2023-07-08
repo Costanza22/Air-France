@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sistema de Controle da Air France</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom,#003087, white,rgb(197, 82, 82));
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 80px auto;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #003087;
+      margin-bottom: 30px;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Sistema de Controle da Air France</h1>
+    
+    <canvas id="chart"></canvas>
+
+    <script>
+      var aircraftData = [
+        {
+          model: "A380",
+          passengers: 853
+        },
+        {
+          model: "Boeing 777",
+          passengers: 396
+        },
+        {
+          model: "A320",
+          passengers: 180
+        },
+        {
+          model: "A340",
+          passengers: 295
+        }
+      ];
+
+      var modelLabels = aircraftData.map(function(aircraft) {
+        return aircraft.model;
+      });
+
+      var passengerCounts = aircraftData.map(function(aircraft) {
+        return aircraft.passengers;
+      });
+
+      var ctx = document.getElementById("chart").getContext("2d");
+      var chart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: modelLabels,
+          datasets: [{
+            label: "Quantidade de Passageiros",
+            data: passengerCounts,
+            backgroundColor: "#003087",
+            borderWidth: 0
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              precision: 0
+            }
+          }
+        }
+      });
+    </script>
+  </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Galeria de Imagens da Air France</title>
+  <style>
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 80px;
+    }
+
+    .gallery img {
+      width: 300px;
+      height: 200px;
+     
+    }
+  </style>
+</head>
+<body>
+  <div class="gallery">
+    <img src="img/af.jpg" alt="Imagem 1">
+    <img src="img/af2.jpg" alt="Imagem 2">
+    <img src="img/af3.jpg" alt="Imagem 3">
+    <img src="img/af4.jpg" alt="Imagem 4">
+    <img src="img/af5.jpg" alt="Imagem 5">
+    <img src="img/af6.jpg" alt="Imagem 6">
+  </div>
+</body>
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sistema de Controle da Air France</title>
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+      background-image: url(img/airfrance.jpg);
+      background-repeat: no-repeat;
+      background-size: 300%;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #003087;
+      margin-bottom: 30px;
+    }
+    .link-button {
+      display: inline-block;
+      background-color: #003087;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      color: #003087;
+      font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f7f7f7;
+    }
+
+    tr:hover {
+      background-color: #eaeaea;
+    }
+
+    .search-container {
+      margin-bottom: 20px;
+    }
+
+    .search-container input[type="text"] {
+      padding: 5px;
+      width: 200px;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .section h2 {
+      color: #003087;
+      margin-bottom: 10px;
+    }
+
+    .section p {
+      line-height: 1.5;
+    }
+
+    .form-container {
+      margin-top: 30px;
+    }
+
+    .form-container label,
+    .form-container input,
+    .form-container textarea,
+    .form-container button {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .form-container label {
+      font-weight: bold;
+    }
+
+    .form-container input,
+    .form-container textarea {
+      width: 100%;
+      padding: 5px;
+    }
+
+    .form-container button {
+      background-color: #003087;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .form-container button:hover {
+      background-color: #0056b3;
+    }
+    .success-message {
+      color: green;
+      margin-top: 10px;
+    }
+   
+  
+
+    
+  </style>
+  <script>
+    src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+     function showSuccessMessage() {
+      var message = document.getElementById("success-message");
+      message.style.display = "block";
+    }
+
+    function askQuestion() {
+      var question = prompt("Digite sua pergunta:");
+      if (question) {
+        // Aqui você pode fazer algo com a pergunta
+        alert("Sua pergunta: " + question);
+      }
+    }
+    function filterTable() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("search-input");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("data-table");
+      tr = table.getElementsByTagName("tr");
+
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+    function deleteRow(row) {
+      var table = document.getElementById("data-table");
+      table.deleteRow(row.parentNode.parentNode.rowIndex);
+    }
+
+    function editRow(row) {
+      var table = document.getElementById("data-table");
+      var cells = table.rows[row.parentNode.parentNode.rowIndex].cells;
+
+      var model = cells[0].innerHTML;
+      var year = cells[1].innerHTML;
+      var passengers = cells[2].innerHTML;
+      var company = cells[3].innerHTML;
+      var country = cells[4].innerHTML;
+      var weight = cells[5].innerHTML;
+
+      var newModel = prompt("Digite o novo modelo:", model);
+      var newYear = prompt("Digite o novo ano:", year);
+      var newPassengers = prompt("Digite a nova quantidade de passageiros:", passengers);
+      var newCompany = prompt("Digite a nova companhia aérea:", company);
+      var newCountry = prompt("Digite o novo país de origem:", country);
+      var newWeight = prompt("Digite o novo peso máximo de decolagem:", weight);
+
+      cells[0].innerHTML = newModel;
+      cells[1].innerHTML = newYear;
+      cells[2].innerHTML = newPassengers;
+      cells[3].innerHTML = newCompany;
+      cells[4].innerHTML = newCountry;
+      cells[5].innerHTML = newWeight;
+    }
+
+    function addRow() {
+      var table = document.getElementById("data-table");
+      var model = prompt("Digite o modelo do avião:");
+      var year = prompt("Digite o ano do avião:");
+      var passengers = prompt("Digite a quantidade de passageiros:");
+      var company = prompt("Digite a companhia aérea:");
+      var country = prompt("Digite o país de origem:");
+      var weight = prompt("Digite o peso máximo de decolagem:");
+
+      var newRow = table.insertRow(table.rows.length);
+      var cell1 = newRow.insertCell(0);
+      var cell2 = newRow.insertCell(1);
+      var cell3 = newRow.insertCell(2);
+      var cell4 = newRow.insertCell(3);
+      var cell5 = newRow.insertCell(4);
+      var cell6 = newRow.insertCell(5);
+      var cell7 = newRow.insertCell(6);
+
+      cell1.innerHTML = model;
+      cell2.innerHTML = year;
+      cell3.innerHTML = passengers;
+      cell4.innerHTML = company;
+      cell5.innerHTML = country;
+      cell6.innerHTML = weight;
+      cell7.innerHTML =
+        "<button class='btn edit-btn' onclick='editRow(this)'>Editar</button>" +
+        "<button class='btn delete-btn' onclick='deleteRow(this)'>Excluir</button>";
+    }
+  </script>
+</head>
+<body>
+   
+  <div class="container">
+    <h1>Sistema de Controle da Air France</h1>
+    <div class="search-container">
+      <input type="text" id="search-input" onkeyup="filterTable()" placeholder="Pesquisar por tipo de modelo">
+    </div>
+    <table id="data-table">
+      <tr>
+        <th>Tipo Modelo</th>
+        <th>Ano do Avião</th>
+        <th>Quantidade de Passageiros</th>
+        <th>Companhia Aérea</th>
+        <th>País de Origem</th>
+        <th>Peso Máximo de Decolagem</th>
+      </tr>
+      <tr>
+        <td>A380</td>
+        <td>2010</td>
+        <td>853</td>
+        <td>Air France</td>
+        <td>França</td>
+        <td>1.2 milhões kg</td>
+      </tr>
+      <tr>
+        <td>Boeing 777</td>
+        <td>2015</td>
+        <td>396</td>
+        <td>Air France</td>
+        <td>França</td>
+        <td>775.6 mil kg</td>
+      </tr>
+      <tr>
+        <td>A320</td>
+        <td>2018</td>
+        <td>180</td>
+        <td>Air France</td>
+        <td>França</td>
+        <td>73.5 mil kg</td>
+      </tr>
+      <button class="btn edit-btn" onclick="editRow(this.parentNode.parentNode)">Editar</button>
+      <button class="btn delete-btn" onclick="deleteRow(this.parentNode.parentNode)">Excluir</button>
+    </td>
+  </tr>
+</table>
+<button class="btn" onclick="addRow()">Adicionar</button>
+    </table>
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>Sistema de Controle da Air France</h1>
+    
+    <div class="section">
+      <h2>História da Air France</h2>
+      <p>A Air France foi fundada em 1933 como resultado de uma fusão de várias companhias aéreas francesas. Desde então, tem sido uma das principais transportadoras aéreas da França, oferecendo serviços de alta qualidade e voos para destinos em todo o mundo.</p>
+    </div>
+
+    <div class="section">
+      <h2>Acidentes</h2>
+      <p>A Air France enfrentou alguns acidentes notáveis ao longo dos anos, incluindo o desastre do voo AF447 em 2009, que resultou na perda de um avião Airbus A330 no Oceano Atlântico. Esses incidentes levaram a melhorias significativas em termos de segurança e procedimentos de voo da companhia aérea.</p>
+    </div>
+
+    <div class="section">
+      <h2>Destinos</h2>
+      <p>A Air France oferece voos para uma ampla variedade de destinos em todo o mundo. Seus principais hubs estão localizados em Paris, na França, e oferecem conexões para cidades nos cinco continentes, permitindo que os passageiros viajem para destinos populares como Nova York, Tóquio, Dubai, São Paulo e muitos outros.</p>
+    </div>
+
+    <div class="section">
+      <h2>Serviços e Programas</h2>
+      <p>A Air France oferece uma variedade de serviços e programas para seus passageiros, incluindo refeições gourmet a bordo, entretenimento em voo, Wi-Fi, lounges VIP, assistência para passageiros com necessidades especiais, além de programas de fidelidade, como o Flying Blue, que permite acumular milhas e obter benefícios exclusivos.</p>
+    </div>
+
+    <div class="section">
+      <h2>Entre em Contato</h2>
+      <div class="form-container">
+        <form>
+          <label for="name">Nome:</label>
+          <input type="text" id="name" name="name" required>
+
+          <label for="email">E-mail:</label>
+          <input type="email" id="email" name="email" required>
+
+          <label for="message">Mensagem:</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+
+          <button type="submit">Enviar</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Sistema de Reservas</h2>
+      <p>Simule sua reserva na Air France preenchendo o formulário abaixo:</p>
+      <div class="form-container">
+        <form>
+          <label for="origin">Origem:</label>
+          <input type="text" id="origin" name="origin" required>
+
+          <label for="destination">Destino:</label>
+          <input type="text" id="destination" name="destination" required>
+
+          <label for="departure">Data de Partida:</label>
+          <input type="date" id="departure" name="departure" required>
+
+          <label for="return">Data de Retorno:</label>
+          <input type="date" id="return" name="return" required>
+
+          <button type="submit">Simular Reserva</button>
+        </form>
+      </div>
+    </div>
+    <a href="grafico.html" class="button-link">Gráfico</a>  <a href="maps.html" class="maps">Mapa</a> <a href="jornal.html" class="j">Noticias</a>
+  </div>
+    <div class="credits">
+        <p>Créditos para a Air France</p>
+        <p>© 2023 Air France. Todos os direitos reservados.</p>
+        
+        
+        
