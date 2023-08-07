@@ -146,7 +146,7 @@
     function askQuestion() {
       var question = prompt("Digite sua pergunta:");
       if (question) {
-        // Aqui você pode fazer algo com a pergunta
+        
         alert("Sua pergunta: " + question);
       }
     }
@@ -227,7 +227,37 @@
       cell7.innerHTML =
         "<button class='btn edit-btn' onclick='editRow(this)'>Editar</button>" +
         "<button class='btn delete-btn' onclick='deleteRow(this)'>Excluir</button>";
+        window.onload = function() {
+  atualizarTabela();
+};
     }
+    var newModel = prompt("Digite o novo modelo:", model);
+var newYear = prompt("Digite o novo ano:", year);
+var newPassengers = prompt("Digite a nova quantidade de passageiros:", passengers);
+var newCompany = prompt("Digite a nova companhia aérea:", company);
+var newCountry = prompt("Digite o novo país de origem:", country);
+var newWeight = prompt("Digite o novo peso máximo de decolagem:", weight);
+
+
+var rowIndex = parseInt(button.dataset.rowIndex);
+
+
+var tabelaAvioes = JSON.parse(localStorage.getItem('tabelaAvioes'));
+
+
+tabelaAvioes[rowIndex].modelo = newModel;
+tabelaAvioes[rowIndex].ano = newYear;
+tabelaAvioes[rowIndex].passageiros = newPassengers;
+tabelaAvioes[rowIndex].companhia = newCompany;
+tabelaAvioes[rowIndex].pais = newCountry;
+tabelaAvioes[rowIndex].peso = newWeight;
+
+
+localStorage.setItem('tabelaAvioes', JSON.stringify(tabelaAvioes));
+
+
+atualizarTabela();
+
   </script>
 </head>
 <body>
@@ -367,7 +397,7 @@
                 "Pequim, China",
                 "Joanesburgo, África do Sul",
                 "Dubai, Emirados Árabes Unidos",
-                // Adicione outros destinos da Air France aqui
+             
               ];
           
               $("#destination").autocomplete({
@@ -395,6 +425,217 @@
     <div class="credits">
         <p>Créditos para a Air France</p>
         <p>© 2023 Air France. Todos os direitos reservados.</p>
+        
+
+        <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Chatbot Air France</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .chat-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 300px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #f9f9f9;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s;
+    }
+
+    .chatbox {
+      height: 200px;
+      overflow-y: auto;
+      padding: 10px;
+    }
+
+    .chatbox p {
+      margin: 5px 0;
+    }
+
+    .user-input {
+      width: 100%;
+      margin-top: 20px;
+      padding: 2px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      
+    }
+
+    /* Cores da Air France */
+    .air-france-blue {
+      background-color: #002157;
+      color: #fff;
+    }
+
+    .air-france-red {
+      background-color: #c60c30;
+      color: #fff;
+    }
+
+    .air-france-white {
+      background-color: #ffffff;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container" onmouseover="changeColors()" onmouseout="resetColors()">
+    <h1>Chatbot Air France</h1>
+    <div class="chatbox" id="chatbox">
+      <p><strong>Chatbot:</strong> Olá! Como posso ajudar?</p>
+    </div>
+    <input type="text" class="user-input" id="input-box" placeholder="Digite sua pergunta...">
+  </div>
+  <textarea id="feedback-box" class="user-feedback" placeholder="Deixe seu feedback aqui..."></textarea>
+  <button type="button" onclick="submitFeedback()">Enviar Feedback</button>
+</div>
+
+
+  <script>
+    function changeColors() {
+      var chatContainer = document.querySelector(".chat-container");
+      chatContainer.classList.add("air-france-blue");
+    }
+
+    function resetColors() {
+      var chatContainer = document.querySelector(".chat-container");
+      chatContainer.classList.remove("air-france-blue");
+    }
+    var languages = {
+      "en": {
+        "aviões": "Air France operates a fleet of modern airplanes on its routes.",
+        "destinos": "Air France flies to various destinations around the world.",
+        "reservas": "You can make reservations directly on our website.",
+        "segurança nos voos": "Safety on Air France flights is a top priority; we adhere to rigorous international standards.",
+        "passar mal durante o voo": "In case of discomfort during the flight, please call the flight attendants, they will assist you.",
+        "turbulência": "Turbulence is a natural and safe phenomenon. Always keep your seatbelt fastened.",
+        "aterrissagem na água": "Water landing is an extreme and very rare safety measure. Our pilots are highly trained to handle this situation.",
+        "voo af447": "The AF447 flight accident was a tragedy that we deeply regret. Since then, we have improved our procedures and training.",
+        "bagagem": "Each passenger can carry one carry-on luggage and check in one bag, within the established weight and size limits.",
+        "status de voos": "To check the status of Air France flights, you can access our flight status page on our official website.",
+        "default": "Sorry, I didn't understand your question. Please try again."
+      },
+      "pt": {
+        "aviões": "A Air France opera uma frota de aviões modernos em suas rotas.",
+        "destinos": "A Air France voa para diversos destinos ao redor do mundo.",
+        "reservas": "Você pode fazer reservas diretamente em nosso site.",
+        "segurança nos voos": "A segurança nos voos da Air France é uma prioridade; seguimos rigorosos padrões internacionais.",
+        "passar mal durante o voo": "Em caso de mal-estar durante o voo, por favor, chame a equipe de comissários, eles irão ajudá-lo.",
+        "turbulência": "A turbulência é um fenômeno natural e seguro. Mantenha sempre o cinto de segurança afivelado.",
+        "aterrissagem na água": "O pouso na água é uma medida de segurança extrema e muito rara. Nossos pilotos são altamente treinados para lidar com essa situação.",
+        "voo af447": "O acidente do voo AF447 foi uma tragédia que lamentamos profundamente. Desde então, aprimoramos nossos procedimentos e treinamentos.",
+        "bagagem": "Cada passageiro pode levar consigo uma bagagem de mão e despachar uma mala, dentro dos limites de peso e tamanho estabelecidos.",
+        "status de voos": "Para verificar o status de voos da Air France, você pode acessar a nossa página de status de voos em nosso site oficial.",
+        "default": "Desculpe, não entendi sua pergunta. Por favor, tente novamente."
+      }
+    };
+
+    document.getElementById("input-box").addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+        var inputBox = document.getElementById("input-box");
+        var question = inputBox.value.trim();
+        var chatbox = document.getElementById("chatbox");
+        var response;
+
+       
+        inputBox.value = "";
+
+        chatbox.innerHTML += "<p><strong>Você:</strong> " + question + "</p>";
+        var language = "en"; 
+        if (question.toLowerCase() === "pt") {
+          language = "pt"; 
+        }
+        function submitFeedback() {
+      var feedbackBox = document.getElementById("feedback-box");
+      var feedbackMessage = feedbackBox.value.trim();
+
+      
+      if (feedbackMessage === "") {
+        alert("Por favor, digite seu feedback antes de enviar.");
+        return;
+        alert("Obrigado pelo seu feedback! Nós realmente apreciamos sua opinião.");
+        feedbackBox.value = "";
+      }
+    }
+        response = languages[language][question.toLowerCase()] || languages[language]["default"];
+        switch (question.toLowerCase()) {
+          case "aviões":
+            response = "A Air France opera uma frota de modernos aviões em suas rotas.";
+            break;
+          case "destinos":
+            response = "A Air France voa para diversos destinos ao redor do mundo.";
+            break;
+          case "reservas":
+            response = "Você pode fazer reservas diretamente em nosso site.";
+            break;
+          case "bom dia":
+            response = "Bom dia! Como posso ajudar?";
+            break;
+          case "boa tarde":
+            response = "Boa tarde! Em que posso ser útil?";
+            break;
+          case "boa noite":
+            response = "Boa noite! Estou aqui para responder suas perguntas.";
+            break;
+            case "estou triste hoje":
+            response = "Sinto Muito! Uma viagem com a Air France é sempre uma boa alternativa!";
+            break;
+            case "obrigada":
+            response = "De nada!";
+            case "obrigado":
+            response = "De nada!";
+            break;
+            break;
+            case "ola":
+            response = "Olá Passageiro!";
+            break;
+            case "como é a segurança nos voos da air france?":
+            response = "A Air France coloca a segurança dos passageiros como prioridade e segue rigorosos padrões de segurança em todos os seus voos.";
+            break;
+          case "o que fazer se passar mal durante o voo?":
+            response = "Se sentir mal durante o voo, por favor, informe a equipe de comissários de bordo imediatamente. Eles estão treinados para lidar com situações de emergência médica.";
+            break;
+          case "o que acontece em caso de turbulência?":
+            response = "Turbulências são comuns em voos e são geralmente inofensivas. Os pilotos estão preparados para lidar com elas e garantir a segurança dos passageiros.";
+            break;
+          case "como é feita a aterrisagem na água?":
+            response = "A aterrisagem na água, também conhecida como amerrissagem, é uma situação extremamente rara. Os pilotos são treinados para lidar com emergências e garantir a segurança dos passageiros.";
+            break;
+            case "o que aconteceu no acidente do voo af 447?":
+            response = "O voo AF 447 da Air France era um Airbus A330 que desapareceu no Oceano Atlântico em 1º de junho de 2009. O acidente ocorreu durante uma tempestade, e a investigação revelou que a aeronave entrou em uma situação de estol irreversível, levando à perda de controle e à queda.";
+            break;
+            case "tudo bem?":
+            response = "Tudo certo,passageiro!";
+            break;
+          default:
+            response = "Desculpe, não entendi sua pergunta. Por favor, tente novamente.";
+            break;
+            case "bagagem":
+            response = "Cada passageiro pode levar consigo uma bagagem de mão e despachar uma mala, dentro dos limites de peso e tamanho estabelecidos.";
+            break;
+          case "status de voos":
+            response = "Para verificar o status de voos da Air France, você pode acessar a página de status de voos no site oficial da Air France! Esse não é o oficial.";
+            
+        }
+
+        chatbox.innerHTML += "<p><strong>Chatbot:</strong> " + response + "</p>";
+
+        chatbox.scrollTop = chatbox.scrollHeight;
+      }
+    });
+  </script>
+</body>
+</html>
+
         
         
         
